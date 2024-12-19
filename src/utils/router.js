@@ -3,7 +3,14 @@ import { LoginPage } from "../pages/LoginPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { userManager } from "./user";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import {
+  handleClick,
+  handleLoginFormSubmit,
+  handleProfileFormSubmit,
+} from "./events";
 
+//? 좋은 것은 설득의 과정을 거치지 않아도 전파가 된다.
+//? 네이밍 컨밴션은 좋은 것에 대해서 이미 전파가 되어 있다.
 const PATHNAME_COMPONENT_MAP = Object.freeze({
   "/": () => renderMainPage(),
   "/profile": () => renderProfilePage(),
@@ -116,51 +123,4 @@ const renderLoginPage = () => {
 
 const renderNotFoundPage = () => {
   document.querySelector("#root").innerHTML = NotFoundPage();
-};
-
-const handleProfileFormSubmit = (e) => {
-  e.preventDefault();
-  const userDataMap = {
-    username: "",
-    email: "",
-    bio: "",
-  };
-
-  document.querySelectorAll("input, textarea").forEach((element) => {
-    const userDataKey = element.id;
-
-    userDataMap[userDataKey] = element.value;
-
-    userManager.setUserLocalStorage(userDataMap);
-  });
-
-  alert("프로필이 업데이트되었습니다.");
-};
-
-const handleLoginFormSubmit = (e) => {
-  e.preventDefault();
-  const userName = document.body.querySelector(`#username`)?.value;
-
-  userManager.setUserLocalStorage({ username: userName, email: "", bio: "" });
-
-  const { router } = useRouter();
-  router("/profile");
-};
-
-const handleClick = (e) => {
-  if (e.target.tagName === "A") {
-    const { href } = e.target;
-    let path = href.slice(href.lastIndexOf("/"));
-    e.preventDefault();
-
-    if (e.target.id === "logout") {
-      userManager.resetUserLocalStorage();
-
-      path = "/login";
-    }
-
-    const { router } = useRouter();
-
-    router(path);
-  }
 };

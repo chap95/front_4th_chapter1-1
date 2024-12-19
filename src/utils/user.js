@@ -1,6 +1,4 @@
 const USER_INFO_LOCAL_STORAGE_NAME = "user";
-export const customLoginEvent = new CustomEvent("login");
-export const customEditProfileEvent = new CustomEvent("editProfile");
 
 export const userManager = (() => {
   let username = "";

@@ -1,5 +1,12 @@
 export const USER_NAME_INPUT_ID = "username";
 export const LOGIN_FORM_ID = "login-form";
+//? 객체가 커질 경우에 성능
+//? ID 값을 상수로 관리할 것인가? --> 리터럴 상수
+
+//? 영서님 질문사항
+//? 1. 모든 id값을 상수로 관리할것인지
+//? 2. 테스트 코드의 이점은 유지보수성에 있는것인데, id값이 의도치않게 바뀐것에 대한 tc 검증은 어떻게 할 수 있을지..?
+//? ID 방식의 참조를 지양 , 다양한 문제점이 발생
 
 export const LoginPage = () => {
   return `
